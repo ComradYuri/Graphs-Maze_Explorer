@@ -21,9 +21,28 @@ class Graph:
             node = self.graph_dict[current_room]
             for connected_room, weight in node.edges.items():
                 key = connected_room[0]
-                print("enter {0} for {1}: {2} cost".format(key, connected_room, weight))
-            valid_choices = [for ]
-
+                print("enter {0} for {1}: {2} steps".format(key, connected_room, weight))
+            valid_choices = [room[0] for room in node.edges.keys()]
+            valid_choices_str = ''
+            for letter in valid_choices:
+                if (len(valid_choices) - 1) == valid_choices.index(letter):
+                    valid_choices_str += letter + "."
+                    break
+                elif (len(valid_choices) - 2) == valid_choices.index(letter):
+                    valid_choices_str += letter + " or "
+                else:
+                    valid_choices_str += letter + ", "
+            print("\nYou have accumulated: {0} steps".format(path_total))
+            choice = input("\nWhich room do you move to?")
+            if choice not in valid_choices:
+                print("\nplease select from these letters: {0}\n".format(valid_choices_str))
+            else:
+                for room in node.edges.keys():
+                    if room.startswith(choice):
+                        current_room = room
+                        path_total += node.edges[room]
+                print("\n*** You have chosen: {0} ***\n".format(current_room))
+        print("Made it to the treasure room with {0} steps".format(path_total))
     def print_map(self):
         print("\nMAZE LAYOUT\n")
         for node_key in self.graph_dict:
@@ -54,13 +73,13 @@ def build_graph():
 
 
     # ADD EDGES BETWEEN ROOMS BELOW...
-    graph.add_edge(entrance, ante_chamber, 7)
-    graph.add_edge(entrance, kings_room, 3)
-    graph.add_edge(kings_room, ante_chamber, 1)
-    graph.add_edge(grand_gallery, ante_chamber, 2)
-    graph.add_edge(kings_room, grand_gallery, 2)
-    graph.add_edge(treasure_room, grand_gallery, 4)
-    graph.add_edge(treasure_room, ante_chamber, 6)
+    graph.add_edge(entrance, ante_chamber, 28)
+    graph.add_edge(entrance, kings_room, 12)
+    graph.add_edge(kings_room, ante_chamber, 4)
+    graph.add_edge(grand_gallery, ante_chamber, 8)
+    graph.add_edge(kings_room, grand_gallery, 8)
+    graph.add_edge(treasure_room, grand_gallery, 16)
+    graph.add_edge(treasure_room, ante_chamber, 24)
 
 
 
