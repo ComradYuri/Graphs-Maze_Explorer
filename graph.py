@@ -14,7 +14,15 @@ class Graph:
 
     def explore(self):
         print("Exploring the graph....\n")
-        # FILL IN EXPLORE METHOD BELOW
+        current_room = 'entrance'
+        path_total = 0
+        print("\nStarting off at the {0}\n".format(current_room))
+        while current_room != 'treasure room':
+            node = self.graph_dict[current_room]
+            for connected_room, weight in node.edges.items():
+                key = connected_room[0]
+                print("enter {0} for {1}: {2} cost".format(key, connected_room, weight))
+            valid_choices = [for ]
 
     def print_map(self):
         print("\nMAZE LAYOUT\n")
@@ -31,10 +39,33 @@ def build_graph():
     graph = Graph()
 
     # MAKE ROOMS INTO VERTICES BELOW...
+    entrance = Vertex("entrance")
+    ante_chamber = Vertex("ante-chamber")
+    kings_room = Vertex("king's room")
+    grand_gallery = Vertex("grand gallery")
+    treasure_room = Vertex("treasure room")
 
     # ADD ROOMS TO GRAPH BELOW...
+    graph.add_vertex(entrance)
+    graph.add_vertex(ante_chamber)
+    graph.add_vertex(kings_room)
+    graph.add_vertex(grand_gallery)
+    graph.add_vertex(treasure_room)
+
 
     # ADD EDGES BETWEEN ROOMS BELOW...
+    graph.add_edge(entrance, ante_chamber, 7)
+    graph.add_edge(entrance, kings_room, 3)
+    graph.add_edge(kings_room, ante_chamber, 1)
+    graph.add_edge(grand_gallery, ante_chamber, 2)
+    graph.add_edge(kings_room, grand_gallery, 2)
+    graph.add_edge(treasure_room, grand_gallery, 4)
+    graph.add_edge(treasure_room, ante_chamber, 6)
+
+
+
+
+
 
     # DON'T CHANGE THIS CODE
     graph.print_map()
